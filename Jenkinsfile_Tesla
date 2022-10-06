@@ -6,7 +6,7 @@ pipeline{
 	stages {
 	 stage('1GetCode'){
 	   steps{
-	    sh "echo 'cloning the latest application version' 
+	    sh "echo 'cloning the latest application version' "
 	    git credentialsId: 'gitcredential', url: 'https://github.com/LandmarkDistiction/Nissan.git'
 	   }
 	 }
