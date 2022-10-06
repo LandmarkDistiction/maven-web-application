@@ -7,7 +7,7 @@ pipeline{
 	 stage('1GetCode'){
 	   steps{
 	    sh "echo 'cloning the latest application version' "
-	   git credentialsId: 'gitcredential', url: 'https://github.com/LandmarkDistiction/Nissan'
+	  git credentialsId: 'agent1credentials', url: 'https://github.com/LandmarkDistiction/maven-web-application.git'
 	   }
 	 }
 	stage('2 Test and Build'){
