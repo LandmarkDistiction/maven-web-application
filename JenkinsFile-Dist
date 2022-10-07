@@ -1,0 +1,36 @@
+Pipeline{
+    agent {label '1' }
+    tools{
+        maven "maven3.8.6"
+    }
+    stages {
+        stage('Get Code'){
+            steps{
+            sh "echo 'cloning code' "
+            git credentialsId: 'gitcredential', url: 'https://github.com/LandmarkDistiction/maven-web-application'
+            }
+        }
+        stage('2Test and Build'){
+            steps{
+            sh "echo 'running Junit test cases' "
+            sh "mvn clean package"
+            }
+        }
+        stage('3 Code Quality'){
+            steps{
+                sh "mvn sonar:sonar"
+            }
+        }
+          stage('4 UploadNexus'){
+            steps{
+                sh "mvn deploy"
+            }
+            }
+      stage('5 deploy to prod'){
+          steps{
+              deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://52.53.239.191:8080/')], contextPath: null, war: 'target/*war'
+          }     
+          }
+      }
+}
+    
